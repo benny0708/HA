@@ -1,0 +1,214 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: HS18
+  # Location required to calculate the time the sun rises and sets
+  latitude: 52.746601
+  longitude: 10.048366
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 46
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Berlin
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+hassio:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+device_tracker:
+  - platform: fritz
+    host: 192.168.2.1
+    username: benny0708
+    password: Kastanie!1
+
+media_player:
+  - platform: soundtouch
+    host: 192.168.2.101
+    port: 8090
+    name: Kittchen
+  - platform: soundtouch
+    host: 192.168.2.146
+    port: 8090
+    name: Bathroom
+
+
+influxdb:
+  host: 192.168.2.222
+  port: 8086
+  database: home_assistant
+  username: benny0708
+  password: Kastanie!1
+  max_retries: 2
+#  exclude:
+#    domains:
+#      - automation
+#      - updater
+#      - group
+#      - script
+#  ssl: true
+#  verify_ssl: false
+
+panel_iframe:
+  grafana:
+    title: Grafana
+    icon: mdi:chart-timeline
+    url: http://192.168.2.222:3000
+
+mqtt:
+  broker: core-mosquitto
+  username: benny0708
+  password: Kastanie!1
+  discovery: false
+
+#sensors
+sensor: !include sensors.yaml
+binary_sensor: !include binary_sensors.yaml
+
+#switches and lights
+switch: !include switches.yaml
+light: !include light.yaml
+
+# Text to speech
+tts:
+  - platform: google_translate
+    service_name: google_say
+
+utility_meter:
+  energy:
+    source: sensor.zaehlerstand_haus
+    cycle: daily
+
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+# ZigBee
+#input_boolean:
+#  zigbee_permit_join:
+#    name: Allow devices to join
+#    initial: off
+#    icon: mdi:cellphone-wireless
+
+timer:
+  zigbee_permit_join:
+    name: Time remaining
+    duration: 600 # Updated this to the number of seconds you wish
+
+  lueftung_high_time_remaining:
+    name: Lueftung high verbl. Zeit
+    duration: 3600
+
+# Lueftung
+fan:
+  - platform: mqtt
+    name: "Lueftung"
+    state_topic: "HS18/HWR/Lueftung/r/gpio_16_state"
+    command_topic: "HS18/HWR/Lueftung/s/gpio_16_state"
+#    oscillation_state_topic: "HS18/HWR/Lueftung/r/gpio_16_brightness"
+#    oscillation_command_topic: "HS18/HWR/Lueftung/s/gpio_16_brightness"
+    speed_state_topic: "HS18/HWR/Lueftung/r/gpio_16_brightness"
+    speed_command_topic: "HS18/HWR/Lueftung/s/gpio_16_brightness"
+    qos: 1
+    retain: true
+    payload_on: "77"
+    payload_off: "OFF"
+#    payload_oscillation_on: "true"
+#    payload_oscillation_off: "false"
+    payload_low_speed: "77"
+    payload_medium_speed: "144"
+    payload_high_speed: "221"
+    speeds:
+      - "off"
+      - low
+      - medium
+      - high
+
+input_boolean:
+  zigbee_permit_join:
+    name: Allow devices to join
+    initial: off
+    icon: mdi:cellphone-wireless
+  lueftung_low:
+    name: Low
+    initial: off
+    icon: mdi:speedometer-slow
+  lueftung_medium:
+    name: Medium
+    initial: off
+    icon: mdi:speedometer-medium
+  lueftung_high:
+    name: High
+    initial: off
+    icon: mdi:speedometer
+  toggle_ambilicht_fernsehschrank:
+  toggle_ambilicht_haengeschrank:
+  toggle_ambilicht_vitrine:
+
+input_number:
+  slider_lueftung:
+    name: Lueftung Stellwert
+    initial: 0
+    min: 0
+    max: 255
+    step: 1
+  lueftung_low:
+    name: Lueftung Stellwert Low
+    initial: 54
+    min: 0
+    max: 255
+    step: 1
+  lueftung_medium:
+    name: Lueftung Stellwert Medium
+    initial: 130
+    min: 0
+    max: 255
+    step: 1
+  lueftung_high:
+    name: Lueftung Stellwert High
+    initial: 230
+    min: 0
+    max: 255
+    step: 1

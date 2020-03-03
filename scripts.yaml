@@ -1,0 +1,77 @@
+weihnachtsbeleuchtung_an:
+# alle als sequenz rechts nach links einschalten. latenzen beim schalten werden
+# ausgeglichen
+  alias: Weihnachtsbeleuchtung einschalten
+  sequence:
+    - alias: Weihnachststern Küche an
+      service: switch.turn_on
+      data:
+        entity_id: switch.weihnachtsbeleuchtung_kueche
+    - delay:
+        milliseconds: 600
+    - alias: DIY Weihnachststern an
+      service: light.turn_on
+      data:
+        entity_id: light.diy_weihnachtsstern
+    - delay:
+        milliseconds: 600
+    - alias: Weihnachststern Haustuer an
+      service: switch.turn_on
+      data:
+        entity_id: switch.weihnachtsstern_haustuer
+    - delay:
+        milliseconds: 600
+    - alias: Weihnachstsbeleuchtung Haustuer an
+      service: switch.turn_on
+      data:
+        entity_id: switch.weihnachtsbeleuchtung_haustuer
+    - delay:
+        milliseconds: 400
+    - alias: Weihnachststern HWR an
+      service: switch.turn_on
+      data:
+        entity_id: switch.weihnachtsbeleuchtung_hwr
+    - delay:
+        milliseconds: 700
+    - alias: Lichterregen Carport an
+      service: switch.turn_on
+      data:
+        entity_id: switch.lichterregen_carport
+    - delay:
+        milliseconds: 600
+    - alias: Lichterregen Carport an
+      service: switch.turn_on
+      data:
+        entity_id: switch.weihnachtsbeleuchtung_terrasse
+
+
+weihnachtsbeleuchtung_nacht:
+# nur Stern ueber tuer bleibt an
+  alias: Weihnachtsbeleuchtung nacht
+  sequence:
+    - alias: Weihnachststern HWR aus
+      service: switch.turn_off
+      data:
+        entity_id: switch.weihnachtsbeleuchtung_hwr
+    - delay:
+        milliseconds: 100
+    - alias: Kueche aus
+      service: switch.turn_off
+      data:
+        entity_id: switch.weihnachtsbeleuchtung_kueche
+    - alias: Carport aus
+      service: switch.turn_off
+      data:
+        entity_id: switch.lichterregen_carport
+    - alias: Haustuer aus
+      service: switch.turn_off
+      data:
+        entity_id: switch.weihnachtsbeleuchtung_haustuer
+    - alias: Haustuer aus
+      service: switch.turn_off
+      data:
+        entity_id: switch.weihnachtsbeleuchtung_terrasse
+    - alias: DIY Weihnachtsstern aus
+      service: light.turn_off
+      data:
+        entity_id: light.diy_weihnachtsstern

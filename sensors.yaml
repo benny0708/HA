@@ -1,0 +1,591 @@
+
+  - platform: yr
+
+
+# Sensoren Energie und Wärme
+
+  - platform: mqtt
+    state_topic: "HS18/HWR/BrauchwasserTemp/r/temperature"
+    name: "Temperatur Brauchwasser"
+    unit_of_measurement: '°C'
+
+  - platform: mqtt
+    state_topic: "HS18/StromzaehlerHaus/Leistung"
+    name: "Leistung Haus"
+    unit_of_measurement: 'W'
+
+  - platform: mqtt
+    state_topic: "HS18/StromzaehlerHaus/Arbeit"
+    name: "Zaehlerstand Haus"
+    unit_of_measurement: 'kWh'
+    value_template: "{{ value_json | float / 1000 }}"
+
+  - platform: mqtt
+    state_topic: "HS18/StromzaehlerHeizung/Leistung"
+    name: "Leistung Heizung"
+    unit_of_measurement: 'W'
+
+  - platform: mqtt
+    state_topic: "HS18/StromzaehlerHeizung/Arbeit"
+    name: "Zaehlerstand Heizung"
+    unit_of_measurement: 'kWh'
+    value_template: "{{ value_json | float / 1000 }}"
+
+  - platform: "mqtt"
+    state_topic: "HS18/HWR/S4CH_Zaehlerschrank/r/freq"
+    unit_of_measurement: "W"
+    name: "Leistung 2 Heizung"
+
+  - platform: mqtt
+    state_topic: "HS18/HWR/WaschTrocken/r/ads_a0"
+    name: "Leistung Waschmaschine"
+    unit_of_measurement: 'kW'
+    value_template: "{{ value_json | float / 1280 }}"
+
+  - platform: mqtt
+    state_topic: "HS18/HWR/WaschTrocken/r/ads_a1"
+    name: "Leistung Wäschetrockner"
+    unit_of_measurement: 'kW'
+    value_template: "{{ value_json | float / 1280 }}"
+
+# Sensoren Wohnzimmer
+
+  - platform: mqtt
+    state_topic: "HS18/sonoffs/tele/wemos_1_wohnzimmer/SENSOR"
+    value_template: "{{ value_json.BME280.Humidity }}"
+    name: "Wohnzimmer Relative Feuchte"
+    unit_of_measurement: '%'
+
+  - platform: mqtt
+    state_topic: "HS18/sonoffs/tele/wemos_1_wohnzimmer/SENSOR"
+    value_template: "{{ value_json.DS18B20.Temperature }}"
+    name: "Wohnzimmer Temperatur"
+    unit_of_measurement: '°C'
+
+  - platform: mqtt
+    state_topic: "HS18/sonoffs/tele/wemos_1_wohnzimmer/SENSOR"
+    value_template: "{{ value_json.BME280.Pressure }}"
+    name: "Wohnzimmer Luftdruck"
+    unit_of_measurement: 'hPa'
+
+
+# Sensoren Schlafzimmer
+
+  - platform: mqtt
+    state_topic: "HS18/sonoffs/tele/Schlafzimmer_Bett/SENSOR"
+    value_template: "{{ value_json.DS18B20.Temperature }}"
+    name: "Schlafen Eltern Temperatur"
+    unit_of_measurement: '°C'
+
+
+# Sensoren Badezimmer
+
+  - platform: mqtt
+    state_topic: "HS18/sonoffs/tele/Licht_Badezimmer/SENSOR"
+    value_template: "{{ value_json.BME280.Humidity }}"
+    name: "Badezimmer Relative Feuchte"
+    unit_of_measurement: '%'
+
+  - platform: mqtt
+    state_topic: "HS18/sonoffs/tele/Licht_Badezimmer/SENSOR"
+    value_template: "{{ value_json.DS18B20.Temperature }}"
+    name: "Badezimmer Temperatur"
+    unit_of_measurement: '°C'
+
+#  - platform: mqtt
+#    state_topic: "HS18/sonoffs/tele/Licht_Badezimmer/SENSOR"
+#    value_template: "{{ value_json.BME280.Pressure }}"
+#    name: "Badezimmer Luftdruck"
+#    unit_of_measurement: 'hPa'
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_4_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "Badezimmer OG Temperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_4_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "Badezimmer OG rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_4_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "hPa"
+    device_class: "pressure"
+    value_template: "{{ value_json.pressure }}"
+    name: "Badezimmer OG Luftdruck"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_4_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Badezimmer OG Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_4_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Badezimmer OG Tempsensor Linkquality"
+
+# Sensoren Werkstatt
+
+  - platform: mqtt
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/temperature"
+    name: "Werkstatt Temperatur"
+    unit_of_measurement: '°C'
+
+  - platform: mqtt
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/rssi"
+    name: "RSSI Bewaesserung"
+    unit_of_measurement: '%'
+
+# Sensoren zigbee
+
+#bridge
+  - platform: mqtt
+    name: Bridge state
+    state_topic: "zigbee2mqtt/bridge/state"
+    icon: mdi:router-wireles
+
+#Temperatur Kueche
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_1_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "Kueche Temperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_1_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "Kueche rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_1_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "hPa"
+    device_class: "pressure"
+    value_template: "{{ value_json.pressure }}"
+    name: "Kueche Luftdruck"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_1_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Kueche Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_1_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Kueche Tempsensor Linkquality"
+
+#Temperatur Aussen
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_2_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "Aussentemperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_2_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "Aussen rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_2_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "hPa"
+    device_class: "pressure"
+    value_template: "{{ value_json.pressure }}"
+    name: "Aussen Luftdruck"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_2_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Aussen Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_2_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Aussen Tempsensor Linkquality"
+
+
+#Temperatur Hennes Zimmer
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_3_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "Hennes Zimmer Temperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_3_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "Hennes Zimmer rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_3_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "hPa"
+    device_class: "pressure"
+    value_template: "{{ value_json.pressure }}"
+    name: "Hennes Zimmer Luftdruck"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_3_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Hennes Zimmer Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_3_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Hennes Zimmer Tempsensor Linkquality"
+
+#Bewegungsmelder IKEA
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Bewegungsmelder_1_Tradfri"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Bewegungsmelder HWR Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Bewegungsmelder_1_Tradfri"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Bewegungsmelder HWR Linkquality"
+
+#Steckdosen OSRAM
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Steckdose_1_OSRAM_SmartPlus"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Steckdose 1 OSRAM Smart+ Linkquality"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Steckdose_2_OSRAM_SmartPlus"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Steckdose 2 OSRAM Smart+ Linkquality"
+
+#Taster Xiaomi
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Taster_1_Xiaomi_WXKG11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    icon: "mdi:toggle-switch"
+    value_template: "{{ value_json.click }}"
+    name: "Taster Lueftung Kueche"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Taster_1_Xiaomi_WXKG11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Taster Lueftung Kueche Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Taster_1_Xiaomi_WXKG11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Taster Lueftung Kueche Linkquality"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Taster_2_Xiaomi_WXKG11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    icon: "mdi:toggle-switch"
+    value_template: "{{ value_json.click }}"
+    name: "Taster Licht Hennes"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Taster_2_Xiaomi_WXKG11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Taster Licht Hennes Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Taster_2_Xiaomi_WXKG11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Taster Licht Hennes Linkquality"
+
+# Lueftung
+  - platform: mqtt
+    name: "Lueftung Speed"
+    state_topic: "HS18/HWR/Lueftung/r/gpio_16_brightness"
+    value_template: "{{ ( value_json | float / 2.55 ) | round(0) }}"
+    unit_of_measurement: "%"
+
+  - platform: mqtt
+    name: "Lueftung Temperatur Zuluft intern"
+    state_topic: "HS18/HWR/Lueftung/r/temperature"
+    unit_of_measurement: "°C"
+
+# Neles Zimmer
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_5_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "Neles Zimmer Temperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_5_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "Neles Zimmer rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_5_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "hPa"
+    device_class: "pressure"
+    value_template: "{{ value_json.pressure }}"
+    name: "Neles Zimmer Luftdruck"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_5_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Neles Zimmer Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_5_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Neles Zimmer Tempsensor Linkquality"
+
+# Dachboden
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_6_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "Dachboden Temperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_6_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "Dachboden rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_6_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "hPa"
+    device_class: "pressure"
+    value_template: "{{ value_json.pressure }}"
+    name: "Dachboden Luftdruck"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_6_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Dachboden Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_6_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Dachboden Tempsensor Linkquality"
+
+# Johannas Zimmer
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_7_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "Johannas Zimmer Temperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_7_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "Johannas Zimmer rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_7_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "hPa"
+    device_class: "pressure"
+    value_template: "{{ value_json.pressure }}"
+    name: "Johannas Zimmer Luftdruck"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_7_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Johannas Zimmer Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_7_Xiaomi_WSDCGQ11LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Johannas Zimmer Tempsensor Linkquality"
+
+# Bad EG
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_8_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "Badezimmer EG Temperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_8_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "Badezimmer EG rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_8_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Badezimmer EG Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_8_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Badezimmer EG Tempsensor Linkquality"
+
+# HWR
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_9_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "HWR Temperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_9_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "HWR rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_9_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "HWR Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_9_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "HWR Tempsensor Linkquality"
+
+# HWR
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_10_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    value_template: "{{ value_json.temperature }}"
+    name: "Flur EG Temperatur"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_10_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    value_template: "{{ value_json.humidity }}"
+    name: "Flur EG rel. Feuchte"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_10_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    value_template: "{{ value_json.battery }}"
+    name: "Flur EG Tempsensor Batteriestatus"
+
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Tempsensor_10_Xiaomi_WSDCGQ01LM"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    unit_of_measurement: "-"
+    value_template: "{{ value_json.linkquality }}"
+    name: "Flur EG Tempsensor Linkquality"

@@ -1,0 +1,52 @@
+sun.sun:
+  hidden: true
+sensor.yr_symbol:
+  hidden: true
+sensor.temperatur_brauchwasser:
+  icon: mdi:shower
+sensor.leistung_haus:
+  icon: mdi:home
+sensor.leistung_heizung:
+  icon: mdi:radiator
+sensor.zaehlerstand_haus:
+  icon: mdi:home
+sensor.zaehlerstand_heizung:
+  icon: mdi:radiator
+sensor.wohnzimmer_relative_feuchte:
+  icon: mdi:water-percent
+sensor.wohnzimmer_luftdruck:
+  icon: mdi:speedometer
+device_tracker.bosch_smv68tx06e_68a40e059ba1:
+  hidden: true
+device_tracker.esp_a5fe0f:
+  hidden: true
+device_tracker.johanna_pc_benny:
+  hidden: true
+device_tracker.kittchen:
+  hidden: true
+device_tracker.schlafzimmer_bett_7600:
+  hidden: true
+device_tracker.amazon_b16e68a6d:
+  hidden: true
+device_tracker.amazon_ed6b739e6:
+  hidden: true
+device_tracker.fritz_box:
+  hidden: true
+device_tracker.fritz_repeater:
+  hidden: true
+device_tracker.hassio:
+  hidden: true
+device_tracker.wemos_1_wohnzimmer_5978:
+  hidden: true
+device_tracker.kotalpico:
+  hidden: true
+sensor.badezimmer_relative_feuchte:
+  icon: mdi:water-percent
+device_tracker.vielzulangsam:
+  hidden: true
+device_tracker.android_6d53de3bb7e65de4:
+  hidden: true
+device_tracker.bathroom:
+  hidden: true
+binary_sensor.updater:
+  hidden: true

@@ -1,0 +1,273 @@
+#  - platform: fritzdect
+#    username: benny0708
+#    password: Kastanie!1
+#    host: 192.168.2.1
+
+#Weihnachtsbeleuchtung
+  - platform: mqtt
+    name: "Weihnachtsstern Haustuer"
+    state_topic: "stat/sonoff_1/POWER"
+    command_topic: "HS18/sonoffs/cmnd/sonoff_1/power"
+    availability_topic: "HS18/sonoffs/tele/sonoff_1/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "online"
+    payload_not_available: "offline"
+    retain: false
+
+#  - platform: mqtt
+#    name: "Weihnachtsbeleuchtung Kueche"
+#    state_topic: "stat/sonoff_2/POWER"
+#    command_topic: "HS18/sonoffs/cmnd/sonoff_2/power"
+#    availability_topic: "HS18/sonoffs/tele/sonoff_2/LWT"
+#    qos: 1
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    payload_available: "online"
+#    payload_not_available: "offline"
+#    retain: true
+
+  - platform: mqtt
+    name: "Lichterregen Carport"
+    state_topic: "stat/sonoff_3/POWER"
+    command_topic: "HS18/sonoffs/cmnd/sonoff_3/power"
+    availability_topic: "HS18/sonoffs/tele/sonoff_3/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "online"
+    payload_not_available: "offline"
+    retain: false
+
+#  - platform: mqtt
+#    name: "Weihnachtsbeleuchtung HWR"
+#    state_topic: "stat/sonoff_4/POWER"
+#    command_topic: "HS18/sonoffs/cmnd/sonoff_4/power"
+#    availability_topic: "HS18/sonoffs/tele/sonoff_4/LWT"
+#    qos: 1
+#    payload_on: "ON"
+#    payload_off: "OFF"
+#    payload_available: "online"
+#    payload_not_available: "offline"
+#    retain: true
+
+  - platform: mqtt
+    name: "Weihnachtsbeleuchtung Haustuer"
+    state_topic: "HS18/sonoffs/stat/sonoff_5/POWER"
+    command_topic: "HS18/sonoffs/cmnd/sonoff_5/power"
+    availability_topic: "HS18/sonoffs/tele/sonoff_5/LWT"
+    qos: 1
+    state_on: "ON"
+    state_off: "OFF"
+    payload_on: "On"
+    payload_off: "Off"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+
+  - platform: mqtt
+    name: "Weihnachtsbeleuchtung Terrasse"
+    state_topic: "stat/sonoff_6/POWER"
+    command_topic: "HS18/sonoffs/cmnd/sonoff_6/power"
+    availability_topic: "HS18/sonoffs/tele/sonoff_6/LWT"
+    qos: 1
+    state_on: "ON"
+    state_off: "OFF"
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "online"
+    payload_not_available: "offline"
+    retain: false
+
+
+# Schlafzimmer
+
+  - platform: mqtt
+    name: "Beleuchtung Bett Schlafen Eltern"
+    state_topic: "HS18/sonoffs/stat/Schlafzimmer_Bett/POWER"
+    command_topic: "HS18/sonoffs/cmnd/Schlafzimmer_Bett/power"
+    availability_topic: "HS18/sonoffs/tele/Schlafzimmer_Bett/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: true
+
+
+#Badezimmer
+
+  - platform: mqtt
+    name: "Ambi Licht Badezimmer"
+    state_topic: "HS18/sonoffs/stat/Licht_Badezimmer/POWER"
+    command_topic: "HS18/sonoffs/cmnd/Licht_Badezimmer/power"
+    availability_topic: "HS18/sonoffs/tele/Licht_Badezimmer/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: true
+
+#Werstatt-Bewaesserung
+
+  - platform: mqtt
+    name: "Relais 1"
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/gpio_2_state"
+    command_topic: "HS18/Werkstatt/Bewaesserung/s/gpio_2_state"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false
+
+  - platform: mqtt
+    name: "Relais 2"
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/gpio_0_state"
+    command_topic: "HS18/Werkstatt/Bewaesserung/s/gpio_0_state"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false
+
+  - platform: mqtt
+    name: "Relais 3"
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/gpio_4_state"
+    command_topic: "HS18/Werkstatt/Bewaesserung/s/gpio_4_state"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false
+
+  - platform: mqtt
+    name: "Relais 4"
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/gpio_5_state"
+    command_topic: "HS18/Werkstatt/Bewaesserung/s/gpio_5_state"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false
+
+  - platform: mqtt
+    name: "Relais 5"
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/gpio_13_state"
+    command_topic: "HS18/Werkstatt/Bewaesserung/s/gpio_13_state"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false
+
+  - platform: mqtt
+    name: "Relais 6"
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/gpio_15_state"
+    command_topic: "HS18/Werkstatt/Bewaesserung/s/gpio_15_state"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false
+
+  - platform: mqtt
+    name: "Relais 7"
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/gpio_12_state"
+    command_topic: "HS18/Werkstatt/Bewaesserung/s/gpio_12_state"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false
+
+  - platform: mqtt
+    name: "Relais 8"
+    state_topic: "HS18/Werkstatt/Bewaesserung/r/gpio_16_state"
+    command_topic: "HS18/Werkstatt/Bewaesserung/s/gpio_16_state"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false
+
+#Flur EG
+  - platform: mqtt
+    name: "Licht Haustuer"
+    state_topic: "shellies/shelly1-BA39B8/relay/0"
+    command_topic: "shellies/shelly1-BA39B8/relay/0/command"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+    retain: false
+    optimistic: false
+
+  - platform: mqtt
+    name: "Treppenbeleuchtung"
+    state_topic: "HS18/HWR/S4CH_Zaehlerschrank/r/gpio_3_state"
+    command_topic: "HS18/HWR/S4CH_Zaehlerschrank/s/gpio_12_pulse"
+    retain: true
+    qos: 0
+    payload_on: "300"
+    state_on: "ON"
+    payload_off: "300"
+    state_off: "OFF"
+    optimistic: false
+
+#Wohnzimmer
+  - platform: mqtt
+    name: "Ambi Licht Vitrine"
+    state_topic: "HS18/HWR/S4CH_Zaehlerschrank/r/gpio_14_state"
+    command_topic: "HS18/HWR/S4CH_Zaehlerschrank/s/gpio_4_pulse"
+    retain: true
+    qos: 0
+    payload_on: "300"
+    state_on: "ON"
+    payload_off: "300"
+    state_off: "OFF"
+    optimistic: false
+
+  - platform: mqtt
+    name: "Ambi Licht Fernsehschrank"
+    state_topic: "HS18/HWR/S4CH_Zaehlerschrank/r/gpio_0_state"
+    command_topic: "HS18/HWR/S4CH_Zaehlerschrank/s/gpio_15_pulse"
+    retain: true
+    qos: 0
+    payload_on: "300"
+    state_on: "ON"
+    payload_off: "300"
+    state_off: "OFF"
+    optimistic: false
+
+#Küche
+  - platform: mqtt
+    name: "Ambi Licht Haengeschrank"
+    state_topic: "HS18/HWR/S4CH_Zaehlerschrank/r/gpio_1_state"
+    command_topic: "HS18/HWR/S4CH_Zaehlerschrank/s/gpio_5_pulse"
+    retain: true
+    qos: 0
+    payload_on: "300"
+    state_on: "ON"
+    payload_off: "300"
+    state_off: "OFF"
+    optimistic: false
+
+#Steckdosen
+  - platform: "mqtt"
+    name: "Weihnachtsbeleuchtung Kueche"
+    state_topic: "zigbee2mqtt/Steckdose_1_OSRAM_SmartPlus"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: "zigbee2mqtt/Steckdose_1_OSRAM_SmartPlus/set"
+
+  - platform: "mqtt"
+    name: "Weihnachtsbeleuchtung HWR"
+    state_topic: "zigbee2mqtt/Steckdose_2_OSRAM_SmartPlus"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: "zigbee2mqtt/Steckdose_2_OSRAM_SmartPlus/set"

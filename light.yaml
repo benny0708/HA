@@ -1,0 +1,39 @@
+  - platform: switch
+    name: "Treppenbeleuchtung"
+    entity_id: switch.treppenbeleuchtung
+
+  - platform: switch
+    name: "Ambi Licht Fernsehschrank"
+    entity_id: switch.ambi_licht_fernsehschrank
+
+  - platform: switch
+    name: "Ambi Licht Vitrine"
+    entity_id: switch.ambi_licht_vitrine
+
+  - platform: switch
+    name: "Ambi Licht Haengeschrank"
+    entity_id: switch.ambi_licht_haengeschrank
+
+  - platform: switch
+    name: "Licht Haustuer"
+    entity_id: switch.licht_haustuer
+
+  - platform: mqtt
+    name: "Home Lampe 1"
+    state_topic: "HS18/Lampen/Home1/r/light"
+    command_topic: "HS18/Lampen/Home1/s/light"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false
+
+  - platform: mqtt
+    name: "DIY Weihnachtsstern"
+    state_topic: "HS18/Weihnachtsbeleuchtung/DIYStern/r/light"
+    command_topic: "HS18/Weihnachtsbeleuchtung/DIYStern/s/light"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+    optimistic: false

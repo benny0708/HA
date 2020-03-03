@@ -1,0 +1,12 @@
+---
+hello_world:
+  module: hello
+  class: HelloWorld
+
+livingroom:
+  module: livingroom
+  class: LivingroomWorld
+
+ventilation:
+  module: ventilation
+  class: VentilationWorld

@@ -1,0 +1,408 @@
+- id: AmbiLicht_Nacht_Ein_per_Zeit
+  alias: AmbiLicht Nacht Ein per Zeit
+  trigger:
+  - event: sunset
+    offset: -01:00:00
+    platform: sun
+  - at: '18:30:00'
+    platform: time
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: device_tracker.android
+      state: home
+    - condition: state
+      entity_id: device_tracker.galaxy_a6
+      state: home
+  action:
+  - entity_id: group.ambilight_allnightlong
+    service: switch.turn_on
+- id: AmbiLicht_Morgens_Abends_Ein_per_Zeit
+  alias: AmbiLicht Morgens Abends Ein per Zeit
+  trigger:
+  - event: sunset
+    offset: -01:00:00
+    platform: sun
+  - at: '18:30:00'
+    platform: time
+  - at: 05:00:00
+    platform: time
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: device_tracker.android
+      state: home
+    - condition: state
+      entity_id: device_tracker.galaxy_a6
+      state: home
+  action:
+  - entity_id: group.ambilight_abends_morgens
+    service: switch.turn_on
+- id: AmbiLicht_Nacht_Ein_per_Ankunft
+  alias: AmbiLicht Nacht Ein per Ankunft
+  trigger:
+  - platform: state
+    entity_id: device_tracker.android
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: device_tracker.galaxy_a6
+    from: not_home
+    to: home
+  condition:
+    condition: or
+    conditions:
+    - condition: sun
+      after: sunset
+    - condition: time
+      before: '8:00:00'
+    - condition: time
+      after: '18:30:00'
+  action:
+    service: switch.turn_on
+    entity_id:
+    - group.ambilight_allnightlong
+    - group.ambilight_abends_morgens
+- id: AmbiLicht_Nacht_Aus_per_Zeit
+  alias: AmbiLicht Nacht Aus per Zeit
+  trigger:
+  - platform: time
+    at: '9:00:00'
+  action:
+    service: switch.turn_off
+    entity_id:
+    - group.ambilight_allnightlong
+    - group.ambilight_abends_morgens
+- id: Beleuchtung_Haustuer_Ein
+  alias: Beleuchtung Haustuer Ein
+  trigger:
+  - event: sunset
+    platform: sun
+  - at: '5:30:00'
+    platform: time
+  action:
+  - entity_id: switch.licht_haustuer
+    service: switch.turn_on
+- id: Beleuchtung_Haustuer_Aus
+  alias: Beleuchtung Haustuer Aus
+  trigger:
+  - event: sunrise
+    platform: sun
+  - at: '22:30:00'
+    platform: time
+  action:
+  - entity_id: switch.licht_haustuer
+    service: switch.turn_off
+- id: enable_zigbee_join
+  alias: Enable Zigbee joining
+  trigger:
+    platform: state
+    entity_id: input_boolean.zigbee_permit_join
+    to: 'on'
+  action:
+  - service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/bridge/config/permit_join
+      payload: 'true'
+  - service: timer.start
+    data:
+      entity_id: timer.zigbee_permit_join
+- id: disable_zigbee_join
+  alias: Disable Zigbee joining
+  trigger:
+  - entity_id: input_boolean.zigbee_permit_join
+    platform: state
+    to: 'off'
+  action:
+  - data:
+      payload: 'false'
+      topic: zigbee2mqtt/bridge/config/permit_join
+    service: mqtt.publish
+  - data:
+      entity_id: timer.zigbee_permit_join
+    service: timer.cancel
+- id: disable_zigbee_join_timer
+  alias: Disable Zigbee joining by timer
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.zigbee_permit_join
+  action:
+  - service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/bridge/config/permit_join
+      payload: 'false'
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.zigbee_permit_join
+- id: '1574081099324'
+  alias: HWR Licht an per Bewegung
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.bewegungsmelder_hwr
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id:
+      - switch.steckdose_1_osram_smart
+    service: switch.turn_on
+- id: '1574160318902'
+  alias: HWR Licht aus per Bewegung
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.bewegungsmelder_hwr
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id:
+      - switch.steckdose_1_osram_smart
+    service: switch.turn_off
+- id: '1574687448655'
+  alias: Weihnachtsbeleuchtung Ein
+  description: Startet Script um zeitversetzt von links nach rechts die Beleuchtung
+    einzuschalten
+  trigger:
+  - at: '16:00'
+    platform: time
+  - at: '5:00'
+    platform: time
+  condition: []
+  action:
+  - service: script.weihnachtsbeleuchtung_an
+- id: '1574687786233'
+  alias: Weihnachtsbeleuchtung Nacht
+  description: Schaltet alle Beleuchtung aus, ausser den Herrenhuther Stern über der
+    Haustür
+  trigger:
+  - at: 00:00
+    platform: time
+  condition: []
+  action:
+  - service: script.weihnachtsbeleuchtung_nacht
+- id: '1574688677713'
+  alias: Weihnachtsbeleuchtung Aus
+  description: Schaltet sämtliche Weihnachtsbeleuchtungen aus
+  trigger:
+  - at: '9:00'
+    platform: time
+  condition: []
+  action:
+  - data:
+      entity_id:
+      - switch.weihnachtsbeleuchtung_terrasse
+      - switch.weihnachtsbeleuchtung_haustuer
+      - switch.lichterregen_carport
+      - switch.weihnachtsbeleuchtung_kueche
+      - switch.weihnachtsbeleuchtung_hwr
+      - switch.weihnachtsstern_haustuer
+    service: switch.turn_off
+  - data:
+      entity_id:
+      - light.diy_weihnachtsstern
+    service: light.turn_off
+- id: fan_by_slider
+  alias: Lueftung Stellwert analog
+  trigger:
+  - platform: state
+    entity_id: input_number.slider_lueftung
+  action:
+  - service: mqtt.publish
+    data_template:
+      topic: HS18/HWR/Lueftung/s/gpio_16_brightness
+      payload: '{{ states.input_number.slider_lueftung.state | int }}'
+  - service: input_boolean.turn_off
+    data:
+      entity_id:
+      - input_boolean.lueftung_medium
+      - input_boolean.lueftung_high
+      - input_boolean.lueftung_low
+- id: lueftung_switch_low
+  alias: Lueftung Stellwert Low
+  description: ''
+  trigger:
+  - entity_id: input_boolean.lueftung_low
+    from: 'off'
+    platform: state
+    to: 'on'
+  - payload: '2'
+    platform: mqtt
+    topic: HS18/HWR/Lueftung/r/gpio_2_hold
+  condition: []
+  action:
+  - data_template:
+      payload: '{{ states.input_number.lueftung_low.state | int }}'
+      topic: HS18/HWR/Lueftung/s/gpio_16_brightness
+    service: mqtt.publish
+  - data:
+      entity_id:
+      - input_boolean.lueftung_medium
+      - input_boolean.lueftung_high
+    service: input_boolean.turn_off
+- id: lueftung_switch_medium
+  alias: Lueftung Stellwert Medium
+  description: ''
+  trigger:
+  - entity_id: input_boolean.lueftung_medium
+    from: 'off'
+    platform: state
+    to: 'on'
+  - event_data:
+      entity_id: timer.lueftung_high_time_remaining
+    event_type: timer.finished
+    platform: event
+  condition: []
+  action:
+  - data_template:
+      payload: '{{ states.input_number.lueftung_medium.state | int }}'
+      topic: HS18/HWR/Lueftung/s/gpio_16_brightness
+    service: mqtt.publish
+  - data:
+      entity_id:
+      - input_boolean.lueftung_low
+      - input_boolean.lueftung_high
+    service: input_boolean.turn_off
+- id: lueftung_switch_high
+  alias: Lueftung Stellwert High
+  description: ''
+  trigger:
+  - entity_id: input_boolean.lueftung_high
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: sensor.taster_lueftung_kueche
+    from: single
+    platform: state
+  - above: '70'
+    below: '99'
+    entity_id: sensor.badezimmer_og_rel_feuchte
+    platform: numeric_state
+  - payload: '2'
+    platform: mqtt
+    topic: HS18/HWR/Lueftung/r/gpio_5_hold
+  condition: []
+  action:
+  - data_template:
+      payload: '{{ states.input_number.lueftung_high.state | int }}'
+      topic: HS18/HWR/Lueftung/s/gpio_16_brightness
+    service: mqtt.publish
+  - data:
+      entity_id:
+      - input_boolean.lueftung_medium
+      - input_boolean.lueftung_low
+    service: input_boolean.turn_off
+- id: lueftung_gauge_0
+  alias: Lueftung Gauge zu 0 wenn aus
+  description: ''
+  trigger:
+  - payload: 'OFF'
+    platform: mqtt
+    topic: HS18/HWR/Lueftung/r/gpio_16_state
+  condition: []
+  action:
+  - service: mqtt.publish
+    data:
+      topic: HS18/HWR/Lueftung/r/gpio_16_brightness
+      payload: '0'
+- id: lueftung_set_slider
+  alias: Lueftung set slider
+  trigger:
+    platform: mqtt
+    topic: HS18/HWR/Lueftung/r/gpio_16_brightness
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.slider_lueftung
+      value: '{{ trigger.payload }}'
+- id: '1576183083445'
+  alias: Einschalten Ambi Licht Fernsehschrank
+  description: ''
+  trigger:
+  - entity_id: input_boolean.toggle_ambilicht_fernsehschrank
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.toggle_ambilicht_haengeschrank
+    state: 'off'
+  action:
+  - data:
+      entity_id: light.ambi_licht_fernsehschrank
+    service: light.turn_on
+- id: '1576184172105'
+  alias: Ambilicht Fernsehschrank Statusspiegel An
+  description: ''
+  trigger:
+  - entity_id: light.ambi_licht_fernsehschrank
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: input_boolean.toggle_ambilicht_haengeschrank
+    service: input_boolean.turn_on
+- id: '1576184314870'
+  alias: Ambilicht Fernsehschrank Statusspiegel Aus
+  description: ''
+  trigger:
+  - entity_id: light.ambi_licht_fernsehschrank
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: input_boolean.toggle_ambilicht_haengeschrank
+    service: input_boolean.turn_off
+- id: start_timer_lueftung_high_time_remaining
+  alias: Start Timer Lueftung High
+  trigger:
+  - entity_id: sensor.taster_lueftung_kueche
+    platform: state
+    to: single
+  - above: '70'
+    below: '100'
+    entity_id: sensor.badezimmer_relative_feuchte
+    platform: numeric_state
+  action:
+  - data:
+      entity_id: timer.lueftung_high_time_remaining
+    service: timer.start
+- id: '1580331841120'
+  alias: Hennes Licht
+  description: ''
+  trigger:
+  - entity_id: sensor.taster_licht_hennes
+    platform: state
+    to: single
+  condition: []
+  action:
+  - data:
+      entity_id: light.diy_weihnachtsstern
+    service: light.toggle
+- id: fan_medium_by_rotary_switch
+  alias: Lueftung Stellwert Medium per Handschalter
+  description: ''
+  trigger:
+  - payload: '2'
+    platform: mqtt
+    topic: HS18/HWR/Lueftung/r/gpio_4_hold
+  condition:
+  - condition: state
+    entity_id: timer.lueftung_high_time_remaining
+    state: idle
+  action:
+  - service: mqtt.publish
+    data_template:
+      payload: '{{ states.input_number.lueftung_medium.state | int }}'
+      topic: HS18/HWR/Lueftung/s/gpio_16_brightness

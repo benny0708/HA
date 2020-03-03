@@ -1,0 +1,210 @@
+####views
+#heizung_energie_view:
+#  view: yes
+#  name: Heizung/Energie
+#  entities:
+#    - group.stromverbrauch
+#    - group.heizung
+#
+#wohnzimmer_view:
+#  view: yes
+#  name: Wohnzimmer
+#  entities:
+#    - group.wohnzimmer
+#badezimmer_view:
+#  view: yes
+#  name: Badezimmer
+#  entities:
+#    - group.badezimmer
+
+#kueche_view:
+#  view: yes
+#  name: Kueche
+#  entities:
+#    - media_player.kittchen
+#    - group.Kueche
+
+#schlafzimmer_view:
+#  view: yes
+#  name: Schlafzimmer
+#  entities:
+#    - group.Schlafzimmer
+
+#werkstatt_view:
+#  view: yes
+#  name: Werkstatt
+#  entities:
+#    - group.Bewaesserung
+
+#HWR_view:
+#  view: yes
+#  name: HWR
+#  entities:
+
+#aussenbereich_view:
+#  view: yes
+#  name: Aussenbereich
+#  entities:
+
+#zigbee_view:
+#  view: yes
+#  name: ZigBee
+#  entities:
+#    - group.Zigbee_control
+#    - group.steckdose_osram
+#    - group.tempsensor_xiaomi
+#    - group.tratfri_bwm
+
+####groups
+Stromverbrauch:
+  name: Energie
+  entities:
+    - sensor.leistung_haus
+    - sensor.leistung_heizung
+    - sensor.zaehlerstand_haus
+    - sensor.zaehlerstand_heizung
+    - sensor.energy
+
+Heizung:
+  name: Heizung
+  entities:
+    - sensor.leistung_heizung
+    - sensor.temperatur_brauchwasser
+
+Wohnzimmer:
+  name: Wohnzimmer
+  entities:
+    - sensor.wohnzimmer_luftdruck
+    - sensor.wohnzimmer_relative_feuchte
+    - sensor.wohnzimmer_temperatur
+
+#Weihnachtsbeleuchtung:
+#  name: Weihnachtsbeleuchtung
+#  entities:
+#    - switch.lichterregen_carport
+#    - switch.weihnachtsstern_haustuer
+#    - switch.weihnachtsbeleuchtung_kueche
+#    - switch.weihnachtsbeleuchtung_hwr
+#    - switch.weihnachtsbeleuchtung_haustuer
+#    - switch.weihnachtsbeleuchtung_terrasse
+#    - automation.weihnachtsbeleuchtung_aus
+#    - automation.weihnachtsbeleuchtung_ein_abends
+#    - automation.weihnachtsbeleuchtung_ein_morgens
+#    - automation.weihnachtsbeleuchtung_nacht
+#    - script.weihnachtsbeleuchtung_an
+#    - script.weihnachtsbeleuchtung_nacht
+
+Schlafzimmer:
+  name: Schlafzimmer
+  entities:
+    - sensor.schlafen_eltern_temperatur
+    - switch.beleuchtung_bett_schlafen_eltern
+#    - switch.fritzdect_200_2_wasserbett
+    - switch.fritz_dect_200_1_tv_schlafen
+#    - automation.beleuchtung_bett_aus
+#    - automation.beleuchtung_bett_ein
+
+Badezimmer:
+  name: Badezimmer
+  entities:
+    - sensor.badezimmer_temperatur
+    - sensor.badezimmer_relative_feuchte
+#    - sensor.badezimmer_luftdruck
+    - switch.ambi_licht_badezimmer
+    - switch.fritz_dect_200_2_luefterbad
+
+Family:
+  name: Family
+  entities:
+    - device_tracker.android
+    - device_tracker.galaxy_a6
+
+Ambilight_AllNightLong:
+  name: Ambientelicht ganze Nacht
+  entities:
+    - switch.beleuchtung_bett_schlafen_eltern
+    - switch.ambi_licht_badezimmer
+    - switch.treppenbeleuchtung
+#    - automation.ambilicht_nacht_ein_per_zeit
+#    - automation.ambilicht_nacht_ein_per_ankunft
+#    - automation.ambilicht_nacht_aus_per_zeit
+
+Ambilight_Abends_Morgens:
+  name: Ambientelicht Morgens und Abends
+  entities:
+    - switch.ambi_licht_fernsehschrank
+    - switch.ambi_licht_vitrine
+    - switch.ambi_licht_haengeschrank
+
+Zigbee_control:
+  name: Zigbee Steuerung
+  entities:
+    - input_boolean.zigbee_permit_join
+    - timer.zigbee_permit_join
+    - sensor.bridge_state
+
+Bewaesserung:
+  name: Bewaesserung
+  entities:
+    - sensor.werkstatt_temperatur
+    - sensor.rssi_bewaesserung
+    - switch.relais_1
+    - switch.relais_2
+    - switch.relais_3
+    - switch.relais_4
+    - switch.relais_5
+    - switch.relais_6
+    - switch.relais_7
+    - switch.relais_8
+Aussenbereich:
+  name: Aussenbereich
+  entities:
+    - switch.licht_haustuer
+
+Kueche:
+  name: Kueche
+  entities:
+    - sensor.kueche_temperatur
+    - sensor.kueche_rel_feuchte
+
+ZigBee_devices:
+  name: ZigBee Geraete
+  entities:
+
+Tratfri_BWM:
+  name: Trafri Bewegungsmelder
+  entities:
+    - binary_sensor.bewegungsmelder_hwr
+    - sensor.bewegungsmelder_hwr_batteriestatus
+    - sensor.bewegungsmelder_hwr_linkquality
+
+Tempsensor_xiaomi:
+  name: Tempsensor Xiaomi WSDCGQ11LM
+  entities:
+    - sensor.aussentemperatur
+    - sensor.aussen_rel_feuchte
+    - sensor.aussen_luftdruck
+    - sensor.aussen_tempsensor_batteriestatus
+    - sensor.aussen_tempsensor_linkquality
+    - sensor.hennes_zimmer_temperatur
+    - sensor.hennes_zimmer_rel_feuchte
+    - sensor.hennes_zimmer_luftdruck
+    - sensor.hennes_zimmer_tempsensor_batteriestatus
+    - sensor.hennes_zimmer_tempsensor_linkquality
+    - sensor.kueche_temperatur
+    - sensor.kueche_rel_feuchte
+    - sensor.kueche_luftdruck
+    - sensor.kueche_tempsensor_batteriestatus
+    - sensor.kueche_tempsensor_linkquality
+
+Steckdose_Osram:
+  name: Steckdose OSRAM Smart+
+  entities:
+    - sensor.steckdose_1_osram_smart_linkquality
+    - switch.steckdose_1_osram_smart
+    - sensor.steckdose_2_osram_smart_linkquality
+    - switch.steckdose_2_osram_smart
+
+General_control:
+  name: Steuerung generell
+  entities:

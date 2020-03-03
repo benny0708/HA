@@ -1,0 +1,26 @@
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/Bewegungsmelder_1_Tradfri"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    payload_on: true
+    payload_off: false
+    value_template: "{{ value_json.occupancy }}"
+    device_class: "motion"
+    name: "Bewegungsmelder HWR"
+
+  - platform: "mqtt"
+    state_topic: "HS18/HWR/Lueftung/r/gpio_5_state"
+    payload_on: "ON"
+    payload_off: "OFF"
+    name: "Lueftung High"
+
+  - platform: "mqtt"
+    state_topic: "HS18/HWR/Lueftung/r/gpio_4_state"
+    payload_on: "ON"
+    payload_off: "OFF"
+    name: "Lueftung Medium"
+
+  - platform: "mqtt"
+    state_topic: "HS18/HWR/Lueftung/r/gpio_2_state"
+    payload_on: "ON"
+    payload_off: "OFF"
+    name: "Lueftung Low"
