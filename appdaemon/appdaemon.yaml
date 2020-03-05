@@ -1,10 +1,10 @@
 ---
 secrets: /config/secrets.yaml
 appdaemon:
-  latitude: 52.379189
-  longitude: 4.899431
-  elevation: 2
-  time_zone: Europe/Amsterdam
+  latitude: 52.746601
+  longitude: 10.048366
+  elevation: 46
+  time_zone: Europe/Berlin
   plugins:
     HASS:
       type: hass
